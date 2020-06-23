@@ -63,7 +63,7 @@ const objetojs = {
 
 
 
-const arreglo = []; //object
+; //object
 
 console.log(objetojs);
 console.log(objetojs.mascotas);
