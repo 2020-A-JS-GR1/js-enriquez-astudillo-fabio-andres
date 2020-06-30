@@ -1,5 +1,4 @@
 const fs = require('fs'); 
-const hola = 'hola'
 
 console.log('Primero'); //sincrono
 
@@ -11,7 +10,7 @@ fs.readFile( //linea asíncrona
         if (error) {
             console.error('Hubo error: ', error);
         } else {
-            console.log('buena tarde: ', contenido);
+            console.log('archivo: ', contenido);
         }
     }
 );
