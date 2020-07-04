@@ -32,6 +32,12 @@ promesaEsPar(6)
     ).then(
         (numeroParCuadrado) => {
             console.log('Contenido then cuadrado: ', numeroParCuadrado);
+            return promesaElevarAlCuadrado(numeroParCuadrado)
+        }
+    ).then(
+        (numeroParCuadrado) => {
+            console.log('Contenido then cuadrado: ', numeroParCuadrado);
+            return promesaElevarAlCuadrado(numeroParCuadrado)
         }
     )
     .catch(
