@@ -31,7 +31,6 @@ function funcionDeEscritura(path, contenidoNuevo) {
 }
 
 //ASYN AWAIT -> dentro de una funcion
-console.log('1');
 
 async function escribirEnArchivo(path, contenidoNuevo) {
     try {
@@ -45,16 +44,6 @@ async function escribirEnArchivo(path, contenidoNuevo) {
         console.error(e);
     }
 }
-
-console.log('2');
-console.log('2');
-console.log('2');
-console.log('2');
-console.log('2');
-console.log('2');
-console.log('2');
-console.log('2');
-console.log('2');
 
 escribirEnArchivo('09-ejercicio-lec-esc-promesas.txt', 'Chao')
 
