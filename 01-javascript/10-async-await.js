@@ -1,53 +1,49 @@
-const fs = require('fs')
-
-function funcionDeLectura(path) {
-    const promesaDeLectura = new Promise(
-        (resolve, reject) => {
-            fs.readFile (path, 'utf-8', (error, contenido) => {
-                if(error) {
-                    reject(error)
-                } else {
-                    resolve(contenido)
-                }
-            })
+const promesaLeerArchivo = () => {
+    return new Promise(
+        (res, rej) => {
+            // res('CONTENIDO LEER ARCHIVO')
+            res('CONTENIDO LEER ARCHIVO');
         }
-    )
-    return promesaDeLectura;
+    );
+}
+const promesaEscribirArchivo = () => {
+    return new Promise(
+        (res, rej) => {
+            // res('CONTENIDO ESCRIBIR ARCHIVO');
+            rej('ERROR =(')
+        }
+    );
 }
 
-function funcionDeEscritura(path, contenidoNuevo) {
-    const promesaDeEscritura = new Promise(
-        (resolve, reject) => {
-            fs.writeFile(path, contenidoNuevo, 'utf-8', (error) => {
-                if(error) {
-                    reject(error);
-                } else {
-                    resolve('\n Se ha escrito nuevo contenido en el archivo! \n');
-                }
-            })
-        }
-    )
-    return promesaDeEscritura;
-}
+// ESTO NO ES POSIBLE
+// PORQUE NO ESTA DENTRO DE UNA FUNCION
+// const respuesta = await promesaEscribirArchivo;
 
-//ASYN AWAIT -> dentro de una funcion
-
-async function escribirEnArchivo(path, contenidoNuevo) {
+// ASYNC AWAIT -> DENTRO DE UNA FUNCION
+async function ejercicio() {
+    console.log('1');
     try {
-        const contenidoAnterior = await funcionDeLectura(path);
-        console.log('\nContenido anterior:\n\n', contenidoAnterior);
-        const mensajeDeConfirmacion = await funcionDeEscritura(path, contenidoAnterior + '\n' + contenidoNuevo);
-        console.log(mensajeDeConfirmacion);
-        const contenidoTotal = await funcionDeLectura(path);
-        console.log('Contenido nuevo:\n\n', contenidoTotal, '\n');
-    } catch(e) {
-        console.error(e);
+        console.log('2');
+        const contenidoArchivoActual = await promesaLeerArchivo();
+        console.log(contenidoArchivoActual);
+        console.log('3');
+        await promesaEscribirArchivo();
+        console.log('4');
+        const nuevoContenido = await promesaLeerArchivo();
+        console.log(nuevoContenido);
+        console.log('5');
+    } catch (error) {
+        console.error(error);
     }
+    console.log('6');
+    console.log('7');
 }
 
-escribirEnArchivo('09-ejercicio-lec-esc-promesas.txt', 'Chao')
+const respuestaEjercicio = ejercicio();
+//console.log('respuestaEjercicio', respuestaEjercicio);
+//console.log('promesaLeerArchivo', promesaLeerArchivo());
+//console.log('promesaEscribirArchivo', promesaEscribirArchivo());
 
-//otra forma
-// let ejercicio = async () => {
-
+//  const f = async () => {
+// contenido
 // }

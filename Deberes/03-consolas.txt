@@ -1,0 +1,1 @@
+[{"Nombre":"Nintendo Switch","Fabricante":"Nintendo","Generacion":8,"tieneSoporte":true},{"Nombre":"Play 4","Fabricante":"Sony","Generacion":8,"tieneSoporte":false}]

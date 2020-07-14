@@ -1,0 +1,1 @@
+[{"Nombre":"Super Mario Oddisey","Fabricante":"Nintendo","Precio":50,"soloDigital":false,"consola":"Nintendo Switch"},{"Nombre":"Animal Crossing","Fabricante":"Nintendo","Precio":60,"soloDigital":false,"consola":"Nintendo Switch"},{"Nombre":"Spiderman","Fabricante":"Insomniac","Precio":50,"soloDigital":false,"consola":"Play 4"}]
