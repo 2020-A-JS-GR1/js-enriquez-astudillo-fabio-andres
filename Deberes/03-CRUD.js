@@ -450,11 +450,7 @@ async function iniciarPrograma() {
 
 iniciarPrograma()
 
-//TODO hacer un bucle en el menu de videojuegos
-//TODO editar la cosola de todos los juegos al editar consola
-//TODO eliminar todos los juegos de una cnsola al eliminar consola
-//TODO tanto en consolas como en videojuegos, añadir un mensaje en buscar y mostrar si no existe
-//TODO sepearar funciones en diferentes documentos
+
 
 
 
