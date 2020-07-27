@@ -1,35 +1,76 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+interface Consola {
+    Nombre: string;
+    Fabricante: string;
+    Generacion: number;
+    tieneSoporte: boolean;
+}
+
+interface Videojuego {
+    Nombre: string;
+    Fabricante: string;
+    Precio: number;
+    soloDigital: boolean;
+    consola: string;
+}
+
+iniciarPrograma();
+
+async function iniciarPrograma(): Promise<void> {
+    let repetir = true;
+    while (repetir)
+        try {
+            repetir = await main();
+        } catch (e) {
+            console.error(e);
+            repetir = false;
+        }
+}
+
 async function main() {
     try {
-        const consolasTxt = await cargarConsolas();
-        const videojuegosTxt = await cargarVideojuegos();
+        const consolasTxt: string = await cargarConsolas();
+        const videojuegosTxt: string = await cargarVideojuegos();
 
-        const consolas = JSON.parse(consolasTxt);
-        const videojuegos = JSON.parse(videojuegosTxt);
+        const consolas: Consola[] = JSON.parse(consolasTxt);
+        const videojuegos: Videojuego[] = JSON.parse(videojuegosTxt);
 
-        let consola = {};
+        let consola: Consola;
 
         const opcion = await llamarAlMenuConsolas();
         switch (opcion) {
             case 'Selecciona consola':
-                consola = await seleccionarConsola(consolas);
-                await mostrarConsola(consola, videojuegos);
+                if (consolas.length > 0) {
+                    consola = await seleccionarConsola(consolas);
+                    await mostrarConsola(consola, videojuegos);
+                } else
+                    console.log('\nNo hay consolas para mostrar\n');
                 return true;
             case 'Crear consola':
                 await crearConsola(consolas);
                 return true;
             case 'Buscar consola':
-                await buscarConsola(consolas);
+                if (consolas.length > 0) {
+                    consola = await buscarConsola(consolas);
+                    await mostrarConsola(consola, videojuegos);
+                } else
+                    console.log('\nNo hay consolas para mostrar\n');
                 return true;
             case 'Editar consola':
-                consola = await seleccionarConsola(consolas);
-                await editarConsola(consola, consolas);
+                if (consolas.length > 0) {
+                    consola = await seleccionarConsola(consolas);
+                    await editarConsola(consola.Nombre, consolas, videojuegos);
+                } else
+                    console.log('\nNo hay consolas para mostrar\n');
                 return true;
             case 'Eliminar consola':
-                consola = await seleccionarConsola(consolas);
-                eliminarConsola(consola, consolas);
+                if (consolas.length > 0) {
+                    consola = await seleccionarConsola(consolas);
+                    await eliminarConsola(consola.Nombre, consolas, videojuegos);
+                } else
+                    console.log('\nNo hay consolas para mostrar\n');
                 return true;
             case 'Salir':
                 return false;
@@ -42,8 +83,8 @@ async function main() {
     }
 }
 
-async function seleccionarConsola(consolas) {
-    nombresDeConsolas = consolas.map(
+async function seleccionarConsola(consolas: Consola[]): Promise<Consola> {
+    let nombresDeConsolas: string[] = consolas.map(
         n => n.Nombre
     )
     try {
@@ -56,7 +97,7 @@ async function seleccionarConsola(consolas) {
             }
         ])
 
-        const consolaAMostrar = consolas.find(n => {
+        const consolaAMostrar: Consola = consolas.find(n => {
             return n.Nombre === consolaAMostrarNombre.consolaAMostrarNombre;
         })
         // console.log(consolaAMostrar);
@@ -67,10 +108,10 @@ async function seleccionarConsola(consolas) {
     }
 }
 
-async function mostrarConsola(consola, videojuegos) {
+async function mostrarConsola(consola: Consola, videojuegos: Videojuego[]): Promise<void> {
 
-    videojuegosDeConsola = videojuegos.filter(n => n.consola === consola.Nombre);
-    let videojuego = {};
+    const videojuegosDeConsola: Videojuego[] = videojuegos.filter(n => n.consola === consola.Nombre);
+    let videojuego: Videojuego;
 
     console.log('\nNombre: ', consola.Nombre);
     console.log('Fabricante: ', consola.Fabricante);
@@ -81,25 +122,38 @@ async function mostrarConsola(consola, videojuegos) {
         console.log('Soporte: Finalizado\n');
 
     try {
-        const opcion = await llamarAlMenuVideojuegos();
+        const opcion: string = await llamarAlMenuVideojuegos();
         switch (opcion) {
             case 'Seleccionar videojuego':
-                videojuego = await seleccionarVideojuego(videojuegosDeConsola);
-                await mostrarVideojuego(videojuego);
+                if (videojuegos.length > 0) {
+                    videojuego = await seleccionarVideojuego(videojuegosDeConsola);
+                    await mostrarVideojuego(videojuego);
+                } else
+                    console.log('\nNo hay videojuegos para mostrar\n');
                 break;
             case 'Crear videojuego':
-                await crearVideojuego(videojuegos, consola);
+                await crearVideojuego(videojuegos, consola.Nombre);
                 break;
             case 'Buscar videojuego':
-                await buscarVideojuego(videojuegosDeConsola);
+                if (videojuegos.length > 0) {
+                    videojuego = await buscarVideojuego(videojuegosDeConsola);
+                    await mostrarVideojuego(videojuego);
+                } else
+                    console.log('\nNo hay videojuegos para mostrar\n');
                 break;
             case 'Editar videojuego':
-                videojuego = await seleccionarVideojuego(videojuegosDeConsola);
-                await editarVideojuego(videojuego, videojuegos, consola);
+                if (videojuegos.length > 0) {
+                    videojuego = await seleccionarVideojuego(videojuegosDeConsola);
+                    await editarVideojuego(videojuego, videojuegos, consola.Nombre);
+                } else
+                    console.log('\nNo hay videojuegos para mostrar\n');
                 break;
             case 'Eliminar videojuego':
-                videojuego = await seleccionarVideojuego(videojuegosDeConsola);
-                eliminarVideojuego(videojuego, videojuegos);
+                if (videojuegos.length > 0) {
+                    videojuego = await seleccionarVideojuego(videojuegosDeConsola);
+                    await eliminarVideojuego(videojuego, videojuegos);
+                } else
+                    console.log('\nNo hay videojuegos para mostrar\n');
                 break;
             case 'Regresar':
                 break;
@@ -113,7 +167,7 @@ async function mostrarConsola(consola, videojuegos) {
     }
 }
 
-async function crearConsola(consolas) {
+async function crearConsola(consolas: Consola[]): Promise<void> {
     try {
         const nuevaConsola = await inquirer.prompt([
             {
@@ -138,17 +192,15 @@ async function crearConsola(consolas) {
             }
         ]);
 
-        // console.log(nuevaConsola);
-        // console.log(consolas);
         consolas.push(nuevaConsola);
-        console.log(await escribirConsolas(consolas));
+        await escribirConsolas(consolas);
 
     } catch (e) {
         return e;
     }
 }
 
-async function buscarConsola(consolas) {
+async function buscarConsola(consolas: Consola[]): Promise<Consola> {
     try {
         const nombreDeConsola = await inquirer.prompt([
             {
@@ -157,16 +209,16 @@ async function buscarConsola(consolas) {
                 message: 'Ingrese el nombre de la consola a buscar: '
             }
         ])
-        const consola = consolas.find(n => n.Nombre === nombreDeConsola.nombre)
-        await mostrarConsola(consola);
+        const consola: Consola = consolas.find(n => n.Nombre === nombreDeConsola.nombre)
+        return consola;
     } catch (e) {
         return e;
     }
 }
 
-async function editarConsola(consola, consolas) {
+async function editarConsola(nombreConsola: string, consolas: Consola[], videojuegos: Videojuego[]): Promise<void> {
     try {
-        const consolaEditada = await inquirer.prompt([
+        const consolaEditada: Consola = await inquirer.prompt([
             {
                 type: 'input',
                 name: 'Nombre',
@@ -189,38 +241,40 @@ async function editarConsola(consola, consolas) {
             }
         ]);
 
-        const indiceAEditar = consolas.findIndex(n => n.Nombre === consola.Nombre);
+        videojuegos = videojuegos.map( n => {
+            if(n.consola === nombreConsola) {
+                n.consola = consolaEditada.Nombre;
+                return n;
+            }
+        })
+
+        const indiceAEditar: number = consolas.findIndex(n => n.Nombre === nombreConsola);
         consolas.splice(indiceAEditar, 1, consolaEditada)
 
         await escribirConsolas(consolas);
+        await escribirVideojuego(videojuegos);
 
     } catch (e) {
         return e;
     }
 }
 
-async function eliminarConsola(consola, consolas) {
-    const indiceAEliminar = consolas.findIndex(n => n.Nombre === consola.Nombre);
+async function eliminarConsola(nombreConsola: string, consolas: Consola[], videojuegos: Videojuego[]): Promise<void> {
+    
+    videojuegos = videojuegos.filter( n => n.consola != nombreConsola );
+    
+    const indiceAEliminar: number = consolas.findIndex(n => n.Nombre === nombreConsola);
     consolas.splice(indiceAEliminar, 1);
     try {
         await escribirConsolas(consolas);
+        await escribirVideojuego(videojuegos);
     } catch (e) {
         return e;
     }
 }
 
-async function mostrarVideojuego(videojuego) {
-    console.log('\nNombre: ', videojuego.Nombre);
-    console.log('Fabricante: ', videojuego.Fabricante);
-    console.log('Precio: ', videojuego.Precio);
-    if (videojuego.soloDigital)
-        console.log('Existe solo en digital\n');
-    else
-        console.log('Existe en digital y en formato físico\n');
-}
-
-async function seleccionarVideojuego(videojuegos) {
-    nombresDeVideojuegos = videojuegos.map(
+async function seleccionarVideojuego(videojuegos: Videojuego[]): Promise<Videojuego> {
+    const nombresDeVideojuegos: string[] = videojuegos.map(
         n => n.Nombre
     )
     try {
@@ -233,12 +287,9 @@ async function seleccionarVideojuego(videojuegos) {
             }
         ])
 
-        console.log(videojuegoAMostrarNombre);
-
         const videojuegoAMostrar = videojuegos.find(n => {
             return n.Nombre === videojuegoAMostrarNombre.videojuegoAMostrarNombre;
         })
-        // console.log(videojuegoAMostrar);
         return videojuegoAMostrar;
 
     } catch (e) {
@@ -246,7 +297,17 @@ async function seleccionarVideojuego(videojuegos) {
     }
 }
 
-async function crearVideojuego(videojuegos, consola) {
+async function mostrarVideojuego(videojuego: Videojuego): Promise<void> {
+    console.log('\nNombre: ', videojuego.Nombre);
+    console.log('Fabricante: ', videojuego.Fabricante);
+    console.log('Precio: ', videojuego.Precio);
+    if (videojuego.soloDigital)
+        console.log('Existe solo en digital\n');
+    else
+        console.log('Existe en digital y en formato físico\n');
+}
+
+async function crearVideojuego(videojuegos: Videojuego[], nombreConsola: string): Promise<Videojuego> {
     try {
         const nuevoVideojuego = await inquirer.prompt([
             {
@@ -271,21 +332,17 @@ async function crearVideojuego(videojuegos, consola) {
             }
         ]);
 
-        // console.log(nuevaConsola);
-        // console.log(consolas);
-        // console.log(nuevoVideojuego);
-        nuevoVideojuego["consola"] = consola.Nombre;
-        // console.log(nuevoVideojuego);
+        nuevoVideojuego["consola"] = nombreConsola;
 
         videojuegos.push(nuevoVideojuego);
-        console.log(await escribirVideojuego(videojuegos));
+        await escribirVideojuego(videojuegos);
 
     } catch (e) {
         return e;
     }
 }
 
-async function buscarVideojuego(videojuegos) {
+async function buscarVideojuego(videojuegos: Videojuego[]): Promise<Videojuego> {
     try {
         const nombreDeVideojuego = await inquirer.prompt([
             {
@@ -294,14 +351,14 @@ async function buscarVideojuego(videojuegos) {
                 message: 'Ingrese el nombre del videojuego a buscar: '
             }
         ])
-        const videojuego = videojuegos.find(n => n.Nombre === nombreDeVideojuego.nombre)
-        await mostrarVideojuego(videojuego);
+        const videojuego: Videojuego = videojuegos.find(n => n.Nombre === nombreDeVideojuego.nombre)
+        return videojuego;
     } catch (e) {
         return e;
     }
 }
 
-async function editarVideojuego(videojuego, videojuegos, consola) {
+async function editarVideojuego(videojuego: Videojuego, videojuegos: Videojuego[], nombreConsola: string): Promise<void> {
     try {
         const videojuegoEditado = await inquirer.prompt([
             {
@@ -326,7 +383,7 @@ async function editarVideojuego(videojuego, videojuegos, consola) {
             }
         ]);
 
-        videojuegoEditado["consola"] = consola.Nombre;
+        videojuegoEditado["consola"] = nombreConsola;
 
         const indiceAEditar = videojuegos.findIndex(n => n.Nombre === videojuego.Nombre);
         videojuegos.splice(indiceAEditar, 1, videojuegoEditado)
@@ -338,22 +395,22 @@ async function editarVideojuego(videojuego, videojuegos, consola) {
     }
 }
 
-async function eliminarVideojuego(videojuego, videojuegos) {
-    const indiceAEliminar = videojuegos.findIndex(n => n.Nombre === videojuego.Nombre);
+async function eliminarVideojuego(videojuego: Videojuego, videojuegos: Videojuego[]): Promise<void> {
+    const indiceAEliminar: number = videojuegos.findIndex(n => n.Nombre === videojuego.Nombre);
     videojuegos.splice(indiceAEliminar, 1);
     try {
-        await escribirConsolas(videojuegos);
+        await escribirVideojuego(videojuegos);
     } catch (e) {
         return e;
     }
 }
 
-function cargarConsolas() {
+function cargarConsolas(): Promise<string> {
     return new Promise(
         (res, rej) => {
             fs.readFile('03-consolas.txt', 'utf-8', (e, contenido) => {
                 if (e) {
-                    rej(error);
+                    rej(e);
                 } else {
                     res(contenido);
                 }
@@ -362,12 +419,12 @@ function cargarConsolas() {
     )
 }
 
-function cargarVideojuegos() {
+function cargarVideojuegos(): Promise<string> {
     return new Promise(
         (res, rej) => {
             fs.readFile('03-videojuegos.txt', 'utf-8', (e, contenido) => {
                 if (e) {
-                    rej(error);
+                    rej(e);
                 } else {
                     res(contenido);
                 }
@@ -376,35 +433,35 @@ function cargarVideojuegos() {
     )
 }
 
-function escribirConsolas(consolas) {
+function escribirConsolas(consolas: Consola[]): Promise<void> {
     return new Promise(
         (res, rej) => {
             fs.writeFile('03-consolas.txt', JSON.stringify(consolas), 'utf-8', (e) => {
                 if (e) {
                     rej(e);
                 } else {
-                    res('\nConsola añadida correctamente!\n');
+                    res();
                 }
             })
         }
     )
 }
 
-function escribirVideojuego(videojuegos) {
+function escribirVideojuego(videojuegos: Videojuego[]): Promise<void> {
     return new Promise(
         (res, rej) => {
             fs.writeFile('03-videojuegos.txt', JSON.stringify(videojuegos), 'utf-8', (e) => {
                 if (e) {
                     rej(e);
                 } else {
-                    res('\nVideojuego añadido correctamente!\n');
+                    res();
                 }
             })
         }
     )
 }
 
-async function llamarAlMenuConsolas() {
+async function llamarAlMenuConsolas(): Promise<string> {
     try {
         const respuesta = await inquirer.prompt([
             {
@@ -420,7 +477,7 @@ async function llamarAlMenuConsolas() {
     }
 }
 
-async function llamarAlMenuVideojuegos() {
+async function llamarAlMenuVideojuegos(): Promise<string> {
     try {
         const opcion = await inquirer.prompt([
             {
@@ -437,18 +494,10 @@ async function llamarAlMenuVideojuegos() {
     }
 }
 
-async function iniciarPrograma() {
-    let repetir = true;
-    while (repetir)
-        try {
-            repetir = await main();
-        } catch (e) {
-            console.error(e);
-            repetir = false;
-        }
-}
 
-iniciarPrograma()
+
+
+
 
 
 
