@@ -1,3 +1,7 @@
+# Proyecto: tienda en linea de comics
+
+El proyecto consiste en crear una página web para venta de comics en linea
+
 ## 1) Product Backlog: 
 Se encuentra en el documento excel adjunto
 ## 2) Product prototipo: 
