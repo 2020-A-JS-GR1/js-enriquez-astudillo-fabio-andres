@@ -10,4 +10,4 @@ Se encuentra en el documento el siguiente link:
 https://xd.adobe.com/view/883243e3-2365-4aea-b3f5-1ed9a22722b7-dd61/
 
 ## 3) Esquema de la base de datos: 
-Se encuentra en la imagen adjunta
+Se encuentra en el PDF adjunto
