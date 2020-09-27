@@ -1,0 +1,71 @@
+<div class="form">
+    <div>
+        <form 
+            #form="ngForm" 
+            (ngSubmit)="enviarDatos(form)" 
+            fxLayout="column"
+        >
+            <div fxLayout="column">
+                <label for="name">Ingrese su nombre:</label>
+                <input 
+                    id="name" 
+                    name="name" 
+                    type="text" 
+                    maxlength="30"
+                    required 
+                    [(ngModel)]="name"
+                >
+            </div>
+            <div fxLayout="column">
+                <label for="email">Ingrese su correo:</label>
+                <input 
+                    id="email" 
+                    name="email" 
+                    type="text" 
+                    email required 
+                    [(ngModel)]="email"
+                >
+            </div>
+            <div fxLayout="column">
+                <label for="password">Ingrese su contraseña:</label>
+                <input 
+                    id="password" 
+                    name="password" 
+                    type="password" 
+                    required 
+                    [(ngModel)]="password"
+                    #passwordModel="ngModel"
+                >
+            </div>
+            <div fxLayout="column">
+                <label for="passwordConf">Confirme su contraseña:</label>
+                <input 
+                    id="passwordConf" 
+                    name="passwordConf" 
+                    type="password" 
+                    required 
+                    [(ngModel)]="passwordConfirm"
+                    #passwordConfirmModel="ngModel"
+                >
+            </div>
+            <div *ngIf="password !== passwordConfirm && passwordConfirmModel.touched">
+                Las contraseñas no coinciden
+            </div>
+            <div>
+                <button 
+                    class="submit-but"
+                    type="submit" 
+                    [disabled]="!form.form.valid || password !== passwordConfirm"
+                >
+                    {{buttonText}}
+                </button>
+                <button 
+                    class="reset-but"
+                    type="reset"
+                >
+                    Limpiar formulario
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

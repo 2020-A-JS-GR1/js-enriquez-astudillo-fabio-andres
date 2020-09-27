@@ -12,10 +12,10 @@ module.exports = {
 
   attributes: {
 
-      numero_detalle: {
-        type: 'number',
-        required: true
-      },
+      // numero_detalle: {
+      //   type: 'number',
+      //   required: true
+      // },
       cantidad: {
         type: 'number',
         required: true

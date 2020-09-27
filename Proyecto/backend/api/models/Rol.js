@@ -24,9 +24,9 @@ module.exports = {
       required: true
     },
     //RELACIONES
-    rol_usuario: {
-      collection: 'Rolusuario',
-      via: 'rol'
+    usuarios: {
+      collection: 'Usuario',
+      via: 'roles'
     }
   },
 

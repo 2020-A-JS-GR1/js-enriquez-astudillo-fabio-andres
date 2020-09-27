@@ -1,0 +1,81 @@
+<div class="form">
+    <form #form="ngForm" (ngSubmit)="enviarDatos()">
+        <div fxLayout="column">
+            <label for="titulo">Titulo</label>
+            <input 
+                id="titulo" 
+                name="titulo" 
+                type="text"
+                minlength="2"
+                maxlength="30"
+                required 
+                [(ngModel)]="comicModelo.titulo"
+            >
+        </div>
+        <div fxLayout="column">
+            <label for="autor">Autor</label>
+            <input 
+                id="autor" 
+                name="autor" 
+                type="text"
+                minlength="2"
+                maxlength="30"
+                required 
+                [(ngModel)]="comicModelo.autor"
+            >
+        </div>
+        <div fxLayout="column">
+            <label for="genero">Genero</label>
+            <select 
+                name="genero" 
+                id="genero"
+                [(ngModel)]="comicModelo.genero"
+            >
+                <option value="DC">DC</option>
+                <option value="Marvel">Marvel</option>
+                <option value="Manga">Manga</option>
+            </select>
+        </div>
+        <div fxLayout="column">
+            <label for="precio">Precio</label>
+            <input 
+                id="precio" 
+                name="precio" 
+                type="number"
+                step=".01"
+                min="0"
+                required 
+                [(ngModel)]="comicModelo.precio"
+            >
+        </div>
+        <div fxLayout="column">
+            <label for="img">URL de la imagen</label>
+            <input 
+                id="img" 
+                name="img" 
+                type="text"
+                required 
+                [(ngModel)]="comicModelo.img"
+            >
+        </div>
+        <div fxLayout="column">
+            <label for="estado">Estado</label>
+            <select 
+                name="estado" 
+                id="estado"
+                [(ngModel)]="comicModelo.estado"
+            >
+                <option value="Disponible">Disponible</option>
+                <option value="Agotado">Agotado</option>
+                <option value="Descontinuado">Descontinuado</option>
+            </select>
+        </div>
+        <div fxLayout="column">
+            <button type="reset">Limpiar</button>
+            <button 
+                type="submit"
+                [disabled]="!form.form.valid"
+            >{{buttonName}}</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,10 @@
+<div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+        <h1>Tienda de comics</h1>
+    </div>
+    <div fxLayout="row">
+        <div *ngFor="let routeName of routesNames">
+            <button (click)="irA(routeName)">{{routeName}}</button>
+        </div>
+    </div>
+</div>

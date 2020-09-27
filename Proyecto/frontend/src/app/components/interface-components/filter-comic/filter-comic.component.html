@@ -1,0 +1,11 @@
+<div
+    fxLayout="row"
+    fxLayoutAlign="end center"
+>
+    <div>
+        <label for="genero">Genero: </label>
+        <select name="genero" id="orderBy" (change)="cambioSelect(selectGenero.value)" #selectGenero>
+            <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
+        </select>
+    </div>
+</div>

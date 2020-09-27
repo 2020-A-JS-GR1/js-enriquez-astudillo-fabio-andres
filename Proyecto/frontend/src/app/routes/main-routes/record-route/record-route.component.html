@@ -1,0 +1,22 @@
+<div fxLayout="row">
+    <div *ngFor="let factura of facturas">
+        <button (click)="mostrarDetalle(factura)">{{factura.fecha}}</button>
+    </div>
+    <div class="line"></div>
+    <div *ngIf="comics.length>0">
+        <div *ngFor="let comic of comics">
+            <app-show-comic 
+                [comic]="comic"
+                [actions]="actions"
+            ></app-show-comic>
+        </div>
+        <div>
+            <h3>Subtotal: </h3>
+            {{sub}}
+            <h3>Impuestos: </h3>
+            {{imp}}
+            <h3>Total: </h3>
+            {{tot}}
+        </div>
+    </div>
+</div>

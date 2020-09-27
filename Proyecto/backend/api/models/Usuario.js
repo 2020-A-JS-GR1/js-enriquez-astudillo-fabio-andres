@@ -22,14 +22,12 @@ module.exports = {
     nombre: {
       type: 'string',
       required: true,
-      unique: true,
       minLength: 2,
       maxLength: 64
     },
     password: {
       type: 'string',
       required: true,
-      unique: true,
       minLength: 2,
       maxLength: 16
     },
@@ -44,9 +42,9 @@ module.exports = {
       collection: 'Factura',
       via: 'usuario'
     },
-    rol_usuario: {
-      collection: 'Rolusuario',
-      via: 'usuario'
+    roles: {
+      collection: 'Rol',
+      via: 'usuarios'
     }
   },
 

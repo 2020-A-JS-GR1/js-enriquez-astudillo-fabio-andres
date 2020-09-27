@@ -1,0 +1,47 @@
+.login {
+    width: 400px;
+    border: 2px #606060 solid;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+input, button, a {
+    margin: 10px;
+}
+
+label {
+    margin: 10px 10px 0 10px;
+} 
+
+input, button {
+    padding: 10px;
+}
+
+.submit-but {
+    background-color: rgb(25, 25, 126);
+    color: white;
+    width: 185px;
+    border: rgb(25, 25, 126);
+}
+
+.submit-but:disabled {
+    background-color: rgb(68, 78, 110);
+    color: rgb(199, 199, 199);
+    width: 185px;
+    border: rgb(68, 78, 110);
+}
+
+.reset-but {
+    background-color: white;
+    border: #606060 1px solid;
+    color: #606060 1px solid;
+}
+
+a:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+a { 
+    text-decoration: underline;
+}

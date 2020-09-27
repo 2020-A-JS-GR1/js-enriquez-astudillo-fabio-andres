@@ -1,0 +1,19 @@
+<div fxLayout="column">
+    <div>
+        <app-filter-comic [generos]="generos" (onSelectGenero)="selectGenero($event)"></app-filter-comic>
+    </div>
+
+    <div *ngIf="esAdmin">
+        <button (click)="irA('Nuevo')">Nuevo comic</button>
+    </div>
+    
+    <div>
+       <div *ngFor="let comic of comics">
+            <app-show-comic 
+                [comic]="comic"
+                [actions]="actions"
+                (onActionClick)="event($event, comic)"
+            ></app-show-comic>
+       </div> 
+    </div>
+</div>

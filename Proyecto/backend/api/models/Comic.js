@@ -24,11 +24,13 @@ module.exports = {
       minLength: 2,
       maxLength: 128
     },
-    editorial: {
+    genero: {
       type: 'string',
       required: true,
-      minLength: 2,
-      maxLength: 128
+      isIn: ['DC','Marvel','Manga']
+    },
+    img: {
+      type: 'string'
     },
     precio: {
       type: 'number',

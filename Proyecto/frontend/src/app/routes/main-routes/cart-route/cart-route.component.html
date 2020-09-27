@@ -1,0 +1,15 @@
+<div fxLayout="row" fxLAyoutAlign="space-between ">
+    <div fxLayout="column">
+        <div *ngFor="let comic of elementosDelCarrito">
+             <app-show-comic 
+                 [comic]="comic"
+                 [actions]="actions"
+                 (onActionClick)="event(comic)"
+             ></app-show-comic>
+        </div> 
+        <div *ngIf="elementosDelCarrito.length !== 0">
+            <button (click)="comprar()">Comprar</button>
+        </div>
+    </div>
+    
+ </div>

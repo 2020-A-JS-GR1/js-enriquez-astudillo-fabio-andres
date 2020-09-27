@@ -1,0 +1,8 @@
+<div *ngIf="datosCargados">
+    <app-comic-form
+        
+        [comic]="comic"
+        [buttonName]="buttName"
+        (onFormSubmit)="editarComic($event)"
+    ></app-comic-form>
+</div>

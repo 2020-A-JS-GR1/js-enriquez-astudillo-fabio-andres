@@ -1,0 +1,19 @@
+<div class="comic" fxLayout="row" fxLayoutAlign=" center">
+    <div>
+        <img [src]="comic?.img" alt="Imagen no disponible">
+    </div>
+    <div fxLayout="column">
+        <div>
+            <h2>{{comic?.titulo}}</h2>
+        </div>
+        <div>
+            <div>{{comic?.autor}}</div>
+            <div>{{comic?.genero}}</div>
+            <div>{{comic?.precio}}</div>
+            <div>{{comic?.estado}}</div>
+        </div>
+        <div fxLayout="row">
+            <button *ngFor="let action of actions" (click)="enviarAccion(action)">{{action}}</button>
+        </div>
+    </div>
+</div>

@@ -12,13 +12,13 @@ module.exports = {
 
   attributes: {
 
-    numero_factura: {
-      type: 'string',
-      required: true,
-      unique: true,
-      minLength: 2,
-      maxLength: 16
-    },
+    // numero_factura: {
+    //   type: 'string',
+    //   required: true,
+    //   unique: true,
+    //   minLength: 2,
+    //   maxLength: 16
+    // },
     fecha: {
       type: 'string',
       required: true,
