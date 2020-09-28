@@ -1,1 +1,8 @@
-<p>nuevo-videojuego works!</p>
+
+<div *ngIf="consolaID">
+    <app-videojuego-form
+        buttonName="Crear"
+        [consolaID]="consolaID"
+        (onSubmitForm)="crear($event)"
+    ></app-videojuego-form>
+</div>

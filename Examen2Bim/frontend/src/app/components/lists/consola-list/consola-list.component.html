@@ -1,0 +1,22 @@
+<div class="max-title">
+    Datos de la consola:
+</div>
+<div fxLayout="row"> 
+    <div class="data-box">
+        <div class="title">Nombre: </div>
+        <div class="data">{{consola.Nombre}}</div>
+    </div>
+    <div class="data-box">
+        <div class="title">Fabricante: </div>
+        <div class="data">{{consola.Fabricante}}</div>
+    </div>
+    <div class="data-box">
+        <div class="title">Generación: </div>
+        <div class="data">{{consola.Generacion}}</div>
+    </div>
+    <div class="data-box">
+        <div class="title">Soporte: </div>
+        <div class="data" *ngIf="consola.tieneSoporte">Activo</div>
+        <div class="data" *ngIf="!consola.tieneSoporte">Finalizado</div>
+    </div>
+</div>

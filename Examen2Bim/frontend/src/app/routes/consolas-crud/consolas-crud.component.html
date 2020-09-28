@@ -1,1 +1,23 @@
-<p>consolas-crud works!</p>
+<div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <button (click)="crear()">Nueva</button>
+        </div>
+        <div fxLayout="row">
+            <div>
+                <app-search (onBuscar)="buscar($event)"></app-search>
+            </div>
+            <div>
+                <button (click)="limpiarBusqueda()">Limpiar búsqueda</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <app-list
+            [list]="consolasNombres"
+            (onSelected)="ver($event)"
+            (onEdit)="editar($event)"
+            (onDelete)="eliminar($event)"
+        ></app-list>
+    </div>
+</div>

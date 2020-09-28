@@ -1,1 +1,12 @@
-<p>editar-videojuego works!</p>
+<div fxLayout="row" fxLayoutAlign=" center">
+    <button (click)="regresar()">Regresar</button>
+    <h1>Editar videojuego</h1>
+</div>
+<div *ngIf="datosCargados">
+    <app-videojuego-form
+        buttonName="Editar"
+        [consolaID]="consolaID"
+        [videojuegoInput]="videojuego"
+        (onSubmitForm)="editar($event)"
+    ></app-videojuego-form>
+</div>

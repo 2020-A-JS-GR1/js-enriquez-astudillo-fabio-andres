@@ -8,9 +8,19 @@ import { ConsolasCrudComponent } from './routes/consolas-crud/consolas-crud.comp
 import { NuevaConsolaComponent } from './routes/nueva-consola/nueva-consola.component';
 import { NuevoVideojuegoComponent } from './routes/nuevo-videojuego/nuevo-videojuego.component';
 import { VideojuegoCrudComponent } from './routes/videojuego-crud/videojuego-crud.component';
-import { ErrorComponent } from './routes/error/error.component';
 import { EditarVideojuegoComponent } from './routes/editar-videojuego/editar-videojuego.component';
 import { EditarConsolaComponent } from './routes/editar-consola/editar-consola.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ConsolaService } from './services/consola.service';
+import { VideojuegoService } from './services/videojuego.service';
+import { ConsolaFormComponent } from './components/forms/consola-form/consola-form.component';
+import { VideojuegoFormComponent } from './components/forms/videojuego-form/videojuego-form.component';
+import { FormsModule } from '@angular/forms';
+import { ListComponent } from './components/lists/list/list.component';
+import { ConsolaListComponent } from './components/lists/consola-list/consola-list.component';
+import { VideojuegoListComponent } from './components/lists/videojuego-list/videojuego-list.component';
+import { SearchComponent } from './components/others/search/search.component';
+import { HeaderComponent } from './components/others/header/header.component';
 
 @NgModule({
   declarations: [
@@ -19,16 +29,29 @@ import { EditarConsolaComponent } from './routes/editar-consola/editar-consola.c
     NuevaConsolaComponent,
     NuevoVideojuegoComponent,
     VideojuegoCrudComponent,
-    ErrorComponent,
     EditarVideojuegoComponent,
-    EditarConsolaComponent
+    EditarConsolaComponent,
+    ConsolaFormComponent,
+    VideojuegoFormComponent,
+    ListComponent,
+    ConsolaListComponent,
+    VideojuegoListComponent,
+    SearchComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    ConsolaService,
+    VideojuegoService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

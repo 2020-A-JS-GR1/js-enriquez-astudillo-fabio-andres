@@ -1,1 +1,42 @@
-<p>videojuego-crud works!</p>
+<div>
+    <div fxLayout="row" fxLayoutAlign=" center">
+        <button (click)="regresar()">Regresar</button>
+        <h1>{{consola.Nombre}}</h1>
+    </div>
+    <div *ngIf="consola">
+        <app-consola-list
+            [consola]="consola"
+        ></app-consola-list>
+    </div>
+    <div class="vid-list" fxLayout="row">
+        <div fxFlex="75">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <button (click)="crear()">Nuevo</button>
+                </div>
+                <div fxLayout="row">
+                    <div>
+                        <app-search (onBuscar)="buscar($event)"></app-search>
+                    </div>
+                    <div>
+                        <button (click)="limpiarBusqueda()">Limpiar búsqueda</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <app-list
+                    [list]="videojuegosNombres"
+                    (onSelected)="ver($event)"
+                    (onEdit)="editar($event)"
+                    (onDelete)="eliminar($event)"
+                ></app-list>
+            </div>
+        </div>
+        <div *ngIf="selectedVG" fxFlex="25" fxLayout="row" fxLayoutAlign="center top">
+            <app-videojuego-list
+                [videojuego]="selectedVG"
+            ></app-videojuego-list>
+        </div>
+    </div>
+    
+</div>

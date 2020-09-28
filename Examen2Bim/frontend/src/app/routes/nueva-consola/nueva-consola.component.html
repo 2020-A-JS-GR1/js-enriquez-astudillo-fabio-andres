@@ -1,1 +1,10 @@
-<p>nueva-consola works!</p>
+<div fxLayout="row" fxLayoutAlign=" center">
+    <button (click)="regresar()">Regresar</button>
+    <h1>Nueva consola</h1>
+</div>
+<div>
+    <app-consola-form
+        buttonName="Crear"
+        (onSubmitForm)="crear($event)"
+    ></app-consola-form>
+</div>

@@ -1,0 +1,22 @@
+<div fxLayout="column"> 
+    <div class="max-title">
+        Datos del videojuego:
+    </div>
+    <div>
+        <div class="title">Nombre: </div>
+        <div class="data">{{videojuego.Nombre}}</div>
+    </div>
+    <div>
+        <div class="title">Fabricante: </div>
+        <div class="data">{{videojuego.Fabricante}}</div>
+    </div>
+    <div>
+        <div class="title">Precio: </div>
+        <div class="data">{{videojuego.Precio}}</div>
+    </div>
+    <div>
+        <div class="title">Formato: </div>
+        <div class="data" *ngIf="videojuego.soloDigital">Solo digital</div>
+        <div class="data" *ngIf="!videojuego.soloDigital">Digital y físico</div>
+    </div>
+</div>

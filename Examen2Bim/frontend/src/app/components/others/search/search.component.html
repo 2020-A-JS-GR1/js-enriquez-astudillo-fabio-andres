@@ -1,0 +1,7 @@
+<div>
+    <form (ngSubmit)="enviarBusqueda()" fxLayout="row" fxLayoutAlign=" center">
+        <label for="search"></label>
+        <input type="text" name="search" id="search" [(ngModel)]="busqueda" required>
+        <button type="submit">Buscar</button>
+    </form>
+</div>
