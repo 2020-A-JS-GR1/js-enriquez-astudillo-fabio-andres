@@ -1,7 +1,7 @@
 <div>
     <div fxLayout="row" fxLayoutAlign=" center">
         <button (click)="regresar()">Regresar</button>
-        <h1>{{consola.Nombre}}</h1>
+        <h1 *ngIf="consola">{{consola.Nombre}}</h1>
     </div>
     <div *ngIf="consola">
         <app-consola-list
